@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Rename-Item -Path \"A:\\\\ClaudeAI\\\\MyAI-Projects\\\\helsebook\" -NewName \"klinikktime\")",
+      "Bash(ls \"A:\\\\ClaudeAI\\\\MyAI-Projects\\\\klinikktime\\\\\" && echo \"---\" && ls \"A:\\\\ClaudeAI\\\\MyAI-Projects\\\\\" | grep -i helse)",
+      "PowerShell(node --version)",
+      "PowerShell(npm --version)",
+      "PowerShell(Get-ChildItem \"A:\\\\ClaudeAI\\\\MyAI-Projects\\\\klinikktime\\\\src\" -Recurse | Select-Object FullName | ForEach-Object { $_.FullName.Replace\\(\"A:\\\\ClaudeAI\\\\MyAI-Projects\\\\klinikktime\\\\\", \"\"\\) })"
+    ]
+  }
+}

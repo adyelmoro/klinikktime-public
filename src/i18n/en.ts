@@ -1,0 +1,118 @@
+import type { Translations } from './no'
+
+export const en: Translations = {
+  nav: {
+    home: 'Home',
+    practitioners: 'Practitioners',
+    myAppointments: 'My appointments',
+    admin: 'Admin',
+    login: 'Log in',
+    logout: 'Log out',
+  },
+
+  specialty: {
+    physio: 'Physiotherapy',
+    psychology: 'Psychology',
+    sports_medicine: 'Sports medicine',
+    nutritionist: 'Nutritionist',
+    private_gp: 'Private GP consultation',
+  },
+
+  home: {
+    heroTitle: 'Book an appointment with a private specialist',
+    heroSubtitle: 'Find available slots with qualified practitioners. Pay with Vipps. Verify with BankID.',
+    heroCta: 'Find an appointment',
+    browseTitle: 'Our practitioners',
+    browseSubtitle: 'Choose a specialty and find a time that works for you',
+  },
+
+  practitioner: {
+    bookCta: 'Book appointment',
+    languages: 'Languages',
+    fee: 'Consultation fee',
+    noSlots: 'No available slots on this day',
+    joinWaitlist: 'Join the waitlist',
+    bio: 'About the practitioner',
+  },
+
+  booking: {
+    selectDate: 'Select date',
+    selectTime: 'Select time',
+    reason: 'Reason for visit',
+    reasonPlaceholder: 'Briefly describe what you need help with (optional)',
+    phone: 'Phone number',
+    confirmCta: 'Pay with Vipps',
+    loginRequired: 'You must log in to book an appointment',
+  },
+
+  vipps: {
+    title: 'Pay with Vipps',
+    instruction: 'Open Vipps on your phone',
+    reference: 'Reference number',
+    waiting: 'Waiting for payment...',
+    confirmed: 'Payment confirmed!',
+    redirecting: 'Redirecting...',
+  },
+
+  bankid: {
+    button: 'Log in with BankID',
+    title: 'Log in with BankID',
+    step1Title: 'Enter your national ID number',
+    step1Label: 'National ID number (11 digits)',
+    step1Cta: 'Continue',
+    step2Title: 'Open the BankID app on your phone',
+    step2Instruction: 'Approve the login in the BankID app',
+    step3Title: 'You are now logged in',
+    disclaimer: 'Demo version of BankID login. Real integration requires BankID OIDC certification.',
+  },
+
+  confirmation: {
+    title: 'Appointment confirmed!',
+    subtitle: 'You will receive a confirmation by email',
+    addToCalendar: 'Add to calendar',
+    myAppointments: 'Go to My appointments',
+    qrTitle: 'QR code for check-in',
+    qrInstruction: 'Show this code at reception upon arrival',
+  },
+
+  dashboard: {
+    title: 'My appointments',
+    upcoming: 'Upcoming',
+    past: 'Past',
+    noUpcoming: 'You have no upcoming appointments',
+    noPast: 'You have no past appointments',
+    showQr: 'Show QR code',
+    cancel: 'Cancel',
+    cancelConfirm: 'Are you sure you want to cancel this appointment?',
+    cancelFreeUntil: 'Free cancellation until',
+    cancelNoRefund: 'Cancellation after the deadline does not qualify for a refund',
+    waitlistStatus: 'You are on the waitlist for',
+    leaveWaitlist: 'Leave waitlist',
+  },
+
+  status: {
+    pending: 'Pending',
+    confirmed: 'Confirmed',
+    cancelled: 'Cancelled',
+    completed: 'Completed',
+    no_show: 'No show',
+    arrived: 'Arrived',
+    paid: 'Paid',
+    refunded: 'Refunded',
+    failed: 'Failed',
+  },
+
+  common: {
+    loading: 'Loading...',
+    error: 'Something went wrong. Please try again.',
+    back: 'Back',
+    save: 'Save',
+    cancel: 'Cancel',
+    confirm: 'Confirm',
+    close: 'Close',
+    nok: 'kr',
+    perConsultation: 'per consultation',
+    norwegian: 'Norsk',
+    english: 'English',
+  },
+}
