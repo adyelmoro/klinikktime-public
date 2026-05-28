@@ -137,12 +137,12 @@ export function HeroSection() {
             {/* Stats */}
             <div className="mt-7 flex items-center gap-6 flex-wrap">
               <div>
-                <div className="text-2xl font-bold text-[#111827] leading-none">50+</div>
+                <div className="text-2xl font-bold text-[#111827] leading-none">13</div>
                 <div className="text-xs text-[#9CA3AF] mt-1">{t.home.statPractitioners}</div>
               </div>
               <div className="w-px h-7 bg-[#E5E7EB]" />
               <div>
-                <div className="text-2xl font-bold text-[#111827] leading-none">4</div>
+                <div className="text-2xl font-bold text-[#111827] leading-none">5</div>
                 <div className="text-xs text-[#9CA3AF] mt-1">{t.home.statSpecialties}</div>
               </div>
               <div className="w-px h-7 bg-[#E5E7EB]" />
