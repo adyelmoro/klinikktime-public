@@ -17,7 +17,7 @@ export function BankIDModal({ onSuccess, onClose }: BankIDModalProps) {
   const { t } = useLanguage()
   const [step, setStep] = useState<Step>('input')
   const [ssn, setSsn] = useState('')
-  const [countdown, setCountdown] = useState(30)
+  const [countdown, setCountdown] = useState(10)
   const [error, setError] = useState('')
 
   // Countdown while waiting for "app approval"
@@ -70,6 +70,12 @@ export function BankIDModal({ onSuccess, onClose }: BankIDModalProps) {
       })
       if (signUp?.user) {
         userId = signUp.user.id
+      } else {
+        // Fallback: anonymous session (requires Anonymous sign-ins enabled in Supabase dashboard)
+        const { data: anon } = await supabase.auth.signInAnonymously()
+        if (anon?.user) {
+          userId = anon.user.id
+        }
       }
     }
 
@@ -130,7 +136,7 @@ export function BankIDModal({ onSuccess, onClose }: BankIDModalProps) {
                   <circle
                     cx="32" cy="32" r="28"
                     fill="none" stroke="#39134C" strokeWidth="4"
-                    strokeDasharray={`${(countdown / 30) * 175.9} 175.9`}
+                    strokeDasharray={`${(countdown / 10) * 175.9} 175.9`}
                     className="transition-all duration-1000"
                   />
                 </svg>
