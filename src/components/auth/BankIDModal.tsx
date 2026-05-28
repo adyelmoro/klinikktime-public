@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
 import { useLanguage } from '@/i18n/context'
 import { Button } from '@/components/ui/Button'
@@ -82,10 +83,10 @@ export function BankIDModal({ onSuccess, onClose }: BankIDModalProps) {
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden">
 
         {/* Header */}
-        <div className="bg-[#E3001B] px-6 py-4 flex items-center justify-between">
+        <div className="bg-[#39134C] px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="bg-white rounded-md px-2 py-1">
-              <span className="text-[#E3001B] font-bold text-sm tracking-tight">BankID</span>
+            <div className="bg-white rounded-md px-2.5 py-1.5">
+              <Image src="/icons/bankid-wordmark.svg" alt="BankID" width={70} height={10} />
             </div>
             <span className="text-white font-medium text-sm">{t.bankid.title}</span>
           </div>
@@ -110,7 +111,7 @@ export function BankIDModal({ onSuccess, onClose }: BankIDModalProps) {
                   value={ssn}
                   onChange={(e) => setSsn(e.target.value.replace(/\D/g, '').slice(0, 11))}
                   placeholder="12345678901"
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#E3001B] focus:border-transparent tracking-widest"
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#39134C] focus:border-transparent tracking-widest"
                 />
                 {error && <p className="text-red-600 text-xs mt-1">{error}</p>}
               </div>
@@ -128,7 +129,7 @@ export function BankIDModal({ onSuccess, onClose }: BankIDModalProps) {
                   <circle cx="32" cy="32" r="28" fill="none" stroke="#F3F4F6" strokeWidth="4" />
                   <circle
                     cx="32" cy="32" r="28"
-                    fill="none" stroke="#E3001B" strokeWidth="4"
+                    fill="none" stroke="#39134C" strokeWidth="4"
                     strokeDasharray={`${(countdown / 30) * 175.9} 175.9`}
                     className="transition-all duration-1000"
                   />
@@ -145,7 +146,7 @@ export function BankIDModal({ onSuccess, onClose }: BankIDModalProps) {
                 {[0, 1, 2].map((i) => (
                   <div
                     key={i}
-                    className="w-2 h-2 rounded-full bg-[#E3001B] animate-bounce"
+                    className="w-2 h-2 rounded-full bg-[#39134C] animate-bounce"
                     style={{ animationDelay: `${i * 0.15}s` }}
                   />
                 ))}

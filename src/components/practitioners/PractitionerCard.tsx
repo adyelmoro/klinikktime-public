@@ -12,12 +12,13 @@ interface PractitionerCardProps {
 }
 
 const specialtyIcons: Record<SpecialtyType, string> = {
-  physio:          '🦴',
-  psychology:      '🧠',
-  sports_medicine: '⚡',
-  nutritionist:    '🥗',
-  private_gp:      '🩺',
+  physio:          '/icons/specialty-physio.svg',
+  psychology:      '/icons/specialty-psychology.svg',
+  sports_medicine: '/icons/specialty-sports-medicine.svg',
+  nutritionist:    '/icons/specialty-nutritionist.svg',
+  private_gp:      '/icons/specialty-private-gp.svg',
 }
+
 
 export function PractitionerCard({ practitioner }: PractitionerCardProps) {
   const { t, language } = useLanguage()
@@ -25,7 +26,7 @@ export function PractitionerCard({ practitioner }: PractitionerCardProps) {
   const bio = language === 'en' ? practitioner.bio_en : practitioner.bio_no
   const specialty = t.specialty[practitioner.specialty]
   const fee = practitioner.consultation_fee_nok
-    ? `${(practitioner.consultation_fee_nok / 100).toFixed(0)} ${t.common.nok}`
+    ? `${practitioner.consultation_fee_nok} ${t.common.nok}`
     : null
 
   return (
@@ -42,7 +43,12 @@ export function PractitionerCard({ practitioner }: PractitionerCardProps) {
               className="object-cover w-full h-full"
             />
           ) : (
-            <span>{specialtyIcons[practitioner.specialty]}</span>
+            <img
+              src={specialtyIcons[practitioner.specialty]}
+              alt={practitioner.specialty}
+              width={32}
+              height={32}
+            />
           )}
         </div>
 

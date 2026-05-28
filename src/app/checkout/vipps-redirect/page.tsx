@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState, Suspense } from 'react'
+import Image from 'next/image'
 import { useSearchParams, useRouter } from 'next/navigation'
 
 type Stage = 'loading' | 'confirming' | 'done' | 'error'
@@ -66,14 +67,9 @@ function VippsRedirectContent() {
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden">
 
         {/* Vipps header */}
-        <div className="bg-[#FF5B24] px-6 py-5 text-center">
-          <div className="inline-flex items-center gap-2">
-            {/* Vipps V logo */}
-            <svg className="w-8 h-8 text-white" viewBox="0 0 32 32" fill="currentColor">
-              <path d="M16 2C8.268 2 2 8.268 2 16s6.268 14 14 14 14-6.268 14-14S23.732 2 16 2zm6.5 9.5c-.9 0-1.5.6-2.1 1.5L16 19l-4.4-6c-.6-.9-1.2-1.5-2.1-1.5-.9 0-1.5.6-1.5 1.5 0 .4.1.7.4 1.1l5.5 7.5c.6.8 1.2 1.1 2.1 1.1s1.5-.3 2.1-1.1l5.5-7.5c.2-.4.4-.7.4-1.1 0-.9-.6-1.5-1.5-1.5z"/>
-            </svg>
-            <span className="text-white font-bold text-2xl tracking-tight">Vipps</span>
-          </div>
+        <div className="bg-[#FF5B24] px-6 py-5 flex items-center justify-center gap-3">
+          <Image src="/icons/vipps.svg" alt="" width={48} height={32} />
+          <Image src="/icons/vipps-wordmark.svg" alt="Vipps" width={80} height={20} />
         </div>
 
         <div className="px-6 py-8 text-center">
