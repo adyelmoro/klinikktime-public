@@ -26,7 +26,7 @@ export function PractitionerCard({ practitioner }: PractitionerCardProps) {
   const bio = language === 'en' ? practitioner.bio_en : practitioner.bio_no
   const specialty = t.specialty[practitioner.specialty]
   const fee = practitioner.consultation_fee_nok
-    ? `${practitioner.consultation_fee_nok} ${t.common.nok}`
+    ? `${(practitioner.consultation_fee_nok / 100).toFixed(0)} ${t.common.nok}`
     : null
 
   return (

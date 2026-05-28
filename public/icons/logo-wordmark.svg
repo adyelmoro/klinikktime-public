@@ -1,0 +1,33 @@
+<svg width="220" height="48" viewBox="0 0 220 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Icon mark (scaled down to 48x48) -->
+  <rect width="48" height="48" rx="11" fill="#1A6BCC"/>
+  <!-- Binding pegs -->
+  <rect x="15" y="7" width="5" height="11" rx="2.5" fill="#4A90D9"/>
+  <rect x="28" y="7" width="5" height="11" rx="2.5" fill="#4A90D9"/>
+  <!-- White calendar body -->
+  <rect x="7" y="14" width="34" height="27" rx="6" fill="white"/>
+  <!-- Header tint -->
+  <rect x="7" y="14" width="34" height="10" rx="6" fill="#EBF3FD"/>
+  <rect x="7" y="20" width="34" height="4" fill="#EBF3FD"/>
+  <!-- Appointment circle + cross -->
+  <circle cx="16" cy="26" r="4" fill="#1A6BCC"/>
+  <path d="M13.7 26H18.3" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+  <path d="M16 23.7V28.3" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- Date dots -->
+  <circle cx="24" cy="26" r="2.2" fill="#C8DCF5"/>
+  <circle cx="32" cy="26" r="2.2" fill="#C8DCF5"/>
+  <circle cx="16" cy="34" r="2.2" fill="#C8DCF5"/>
+  <circle cx="24" cy="34" r="2.2" fill="#C8DCF5"/>
+  <circle cx="32" cy="34" r="2.2" fill="#C8DCF5"/>
+
+  <!-- Wordmark text -->
+  <text
+    x="60"
+    y="31"
+    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+    font-size="22"
+    font-weight="700"
+    letter-spacing="-0.5"
+    fill="#111827"
+  >Klinikktime</text>
+</svg>

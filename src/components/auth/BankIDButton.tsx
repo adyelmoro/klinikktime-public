@@ -22,8 +22,16 @@ export function BankIDButton({ onSuccess, className }: BankIDButtonProps) {
         className={className}
         onClick={() => setOpen(true)}
       >
-        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" />
+        {/* BankID geometric bar mark — matches official bankid.no logo mark */}
+        <svg className="w-4 h-5" viewBox="0 0 33 21" fill="currentColor">
+          <rect x="0"  y="0"  width="9" height="3" rx="1.5"/>
+          <rect x="0"  y="12" width="9" height="3" rx="1.5"/>
+          <rect x="0"  y="18" width="9" height="3" rx="1.5"/>
+          <rect x="12" y="6"  width="9" height="3" rx="1.5"/>
+          <rect x="12" y="12" width="9" height="3" rx="1.5"/>
+          <rect x="24" y="0"  width="9" height="3" rx="1.5"/>
+          <rect x="24" y="6"  width="9" height="3" rx="1.5"/>
+          <rect x="24" y="18" width="9" height="3" rx="1.5"/>
         </svg>
         {t.bankid.button}
       </Button>

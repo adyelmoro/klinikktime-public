@@ -1,0 +1,27 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Blue rounded background -->
+  <rect width="64" height="64" rx="14" fill="#1A6BCC"/>
+
+  <!-- Calendar binding pegs -->
+  <rect x="20" y="10" width="7" height="14" rx="3.5" fill="#4A90D9"/>
+  <rect x="37" y="10" width="7" height="14" rx="3.5" fill="#4A90D9"/>
+
+  <!-- White calendar body -->
+  <rect x="9" y="19" width="46" height="36" rx="8" fill="white"/>
+
+  <!-- Calendar header tint -->
+  <rect x="9" y="19" width="46" height="14" rx="8" fill="#EBF3FD"/>
+  <rect x="9" y="27" width="46" height="6" fill="#EBF3FD"/>
+
+  <!-- Row 1: appointment circle (featured) + two dots -->
+  <circle cx="21" cy="34" r="5.5" fill="#1A6BCC"/>
+  <path d="M18.2 34H23.8" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M21 31.2V36.8" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="32" cy="34" r="3" fill="#C8DCF5"/>
+  <circle cx="43" cy="34" r="3" fill="#C8DCF5"/>
+
+  <!-- Row 2: three light dots -->
+  <circle cx="21" cy="45" r="3" fill="#C8DCF5"/>
+  <circle cx="32" cy="45" r="3" fill="#C8DCF5"/>
+  <circle cx="43" cy="45" r="3" fill="#C8DCF5"/>
+</svg>

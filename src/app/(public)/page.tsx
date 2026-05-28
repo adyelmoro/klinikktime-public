@@ -1,11 +1,10 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Link from 'next/link'
 import { useLanguage } from '@/i18n/context'
 import { PractitionerCard } from '@/components/practitioners/PractitionerCard'
 import { PractitionerCardSkeleton } from '@/components/ui/Skeleton'
-import { Button } from '@/components/ui/Button'
+import { HeroSection } from '@/components/layout/HeroSection'
 import type { Practitioner } from '@/types/database'
 
 export default function HomePage() {
@@ -24,34 +23,7 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Hero */}
-      <section className="bg-white border-b border-[#E5E7EB]">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
-          <div className="max-w-2xl">
-            <h1 className="text-4xl sm:text-5xl font-bold text-[#111827] leading-tight tracking-tight">
-              {t.home.heroTitle}
-            </h1>
-            <p className="mt-4 text-lg text-[#6B7280] leading-relaxed">
-              {t.home.heroSubtitle}
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="#practitioners">
-                <Button size="lg">{t.home.heroCta}</Button>
-              </Link>
-              <div className="flex items-center gap-4 text-sm text-[#6B7280]">
-                <span className="flex items-center gap-1.5">
-                  <span className="w-5 h-5 bg-[#FF5B24] rounded text-white text-xs flex items-center justify-center font-bold">V</span>
-                  Vipps
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <span className="w-5 h-5 bg-[#E3001B] rounded text-white text-xs flex items-center justify-center font-bold">B</span>
-                  BankID
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HeroSection />
 
       {/* Practitioners grid */}
       <section id="practitioners" className="max-w-6xl mx-auto px-4 sm:px-6 py-12">

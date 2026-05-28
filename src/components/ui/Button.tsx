@@ -12,7 +12,7 @@ const variantClasses = {
   ghost:     'bg-transparent text-[#6B7280] hover:bg-[#F5F7FA] hover:text-[#111827] focus:ring-gray-300',
   danger:    'bg-[#DC2626] text-white hover:bg-red-700 focus:ring-red-500',
   vipps:     'bg-[#FF5B24] text-white hover:bg-orange-600 focus:ring-orange-400',
-  bankid:    'bg-[#E3001B] text-white hover:bg-red-700 focus:ring-red-400',
+  bankid:    'bg-[#39134C] text-white hover:bg-[#2a0d38] focus:ring-[#39134C]',
 }
 
 const sizeClasses = {

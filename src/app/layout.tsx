@@ -9,6 +9,12 @@ export const metadata: Metadata = {
   },
   description: 'Book time hos private behandlere i Norge. Fysioterapi, psykologi, idrettsmedisin og mer. Betal med Vipps.',
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'),
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico' },
+    ],
+  },
   openGraph: {
     siteName: 'Klinikktime',
     type: 'website',
