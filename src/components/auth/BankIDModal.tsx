@@ -45,43 +45,47 @@ export function BankIDModal({ onSuccess, onClose }: BankIDModalProps) {
   async function simulateApproval() {
     setStep('done')
 
-    // Create or sign in a demo Supabase user using the SSN as seed for the email
     const supabase = createClient()
     const demoEmail = `demo+${ssn.slice(0, 6)}@klinikktime.no`
     const demoPassword = `BankID-${ssn.slice(-5)}-demo`
+    const fullName = 'Demo Bruker'
 
-    // Try sign-in first, fall back to sign-up
     let userId = ''
-    let userEmail = demoEmail
-    let fullName = 'Demo Bruker'
 
-    const { data: signIn } = await supabase.auth.signInWithPassword({
-      email: demoEmail,
-      password: demoPassword,
-    })
-
-    if (signIn?.user) {
-      userId = signIn.user.id
-    } else {
-      const { data: signUp } = await supabase.auth.signUp({
-        email: demoEmail,
-        password: demoPassword,
-        options: { data: { full_name: fullName } },
+    try {
+      // Step 1: Server-side admin call — find or create the user with email
+      // already confirmed. Without this, signInWithPassword fails for unconfirmed
+      // emails and incognito / second-device sessions get a new anonymous ID.
+      const res = await fetch('/api/auth/bankid-demo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: demoEmail, password: demoPassword, fullName }),
       })
-      if (signUp?.user) {
-        userId = signUp.user.id
-      } else {
-        // Fallback: anonymous session (requires Anonymous sign-ins enabled in Supabase dashboard)
-        const { data: anon } = await supabase.auth.signInAnonymously()
-        if (anon?.user) {
-          userId = anon.user.id
+      const adminData = await res.json()
+
+      if (adminData.userId) {
+        // Step 2: Sign in with password — always works because email is confirmed
+        const { data: signIn } = await supabase.auth.signInWithPassword({
+          email: demoEmail,
+          password: demoPassword,
+        })
+        if (signIn?.user) {
+          userId = signIn.user.id
         }
       }
+    } catch {
+      // API call failed — fall through to anonymous
+    }
+
+    // Fallback: anonymous session (requires Anonymous sign-ins enabled in Supabase)
+    if (!userId) {
+      const { data: anon } = await supabase.auth.signInAnonymously()
+      if (anon?.user) userId = anon.user.id
     }
 
     // Short pause so user sees the "verified" state
     await new Promise((r) => setTimeout(r, 1200))
-    onSuccess(userId, userEmail, fullName)
+    onSuccess(userId, demoEmail, fullName)
   }
 
   return (

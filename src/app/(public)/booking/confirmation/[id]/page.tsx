@@ -104,7 +104,7 @@ export default function ConfirmationPage() {
             <div>
               <p className="text-sm font-medium text-[#111827]">Betaling bekreftet</p>
               {data.amount_nok && (
-                <p className="text-xs text-[#6B7280]">{data.amount_nok} kr via Vipps</p>
+                <p className="text-xs text-[#6B7280]">{((data.amount_nok ?? 0) / 100).toFixed(0)} kr via Vipps</p>
               )}
             </div>
           </div>
@@ -154,7 +154,7 @@ export default function ConfirmationPage() {
           variant="ghost"
           size="md"
           className="w-full"
-          onClick={() => router.push('/dashboard')}
+          onClick={() => router.push('/min-side')}
         >
           {t.confirmation.myAppointments}
         </Button>

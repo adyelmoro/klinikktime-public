@@ -16,7 +16,12 @@ const MONTHS_NO = ['Januar', 'Februar', 'Mars', 'April', 'Mai', 'Juni', 'Juli', 
 const MONTHS_EN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
 function toDateString(date: Date): string {
-  return date.toISOString().split('T')[0]
+  // Use local date parts — toISOString() gives UTC which shifts the date
+  // backward by 1 day for Norwegian users (UTC+2)
+  const y = date.getFullYear()
+  const m = String(date.getMonth() + 1).padStart(2, '0')
+  const d = String(date.getDate()).padStart(2, '0')
+  return `${y}-${m}-${d}`
 }
 
 function getDaysInMonth(year: number, month: number) {

@@ -16,10 +16,10 @@ export async function getAvailableSlots(
 ): Promise<TimeSlot[]> {
   const supabase = createServiceClient()
 
-  // Map JS Date.getDay() (0=Sun) to our day_of_week (0=Mon)
-  const d = new Date(date)
-  const jsDay = d.getDay() // 0=Sun, 1=Mon ... 6=Sat
-  const dayOfWeek = jsDay === 0 ? 6 : jsDay - 1 // convert to 0=Mon ... 6=Sun
+  // DB uses JS-native day_of_week: 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat, 0=Sun
+  // Parse date as local noon to avoid UTC midnight shifting the day
+  const d = new Date(date + 'T12:00:00')
+  const dayOfWeek = d.getDay()
 
   // Check for exception
   const { data: exceptions } = await supabase
@@ -68,9 +68,10 @@ export async function getAvailableSlots(
         (b) => b.start < slotEnd && b.end > slotStart
       )
 
-      // Don't show past slots for today
+      // Don't show past slots for today — use local date to match the date string
       const now = new Date()
-      const isToday = date === now.toISOString().split('T')[0]
+      const todayLocal = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`
+      const isToday = date === todayLocal
       const isPast = isToday && cursor <= now.getHours() * 60 + now.getMinutes()
 
       if (!isPast) {
