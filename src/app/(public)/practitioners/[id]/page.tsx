@@ -11,11 +11,11 @@ import { AvailabilityCalendar } from '@/components/booking/AvailabilityCalendar'
 import type { Practitioner, SpecialtyType } from '@/types/database'
 
 const specialtyIcons: Record<SpecialtyType, string> = {
-  physio:          '🦴',
-  psychology:      '🧠',
-  sports_medicine: '⚡',
-  nutritionist:    '🥗',
-  private_gp:      '🩺',
+  physio:          '/icons/specialty-physio.svg',
+  psychology:      '/icons/specialty-psychology.svg',
+  sports_medicine: '/icons/specialty-sports-medicine.svg',
+  nutritionist:    '/icons/specialty-nutritionist.svg',
+  private_gp:      '/icons/specialty-private-gp.svg',
 }
 
 export default function PractitionerPage({ params }: { params: Promise<{ id: string }> }) {
@@ -101,7 +101,12 @@ export default function PractitionerPage({ params }: { params: Promise<{ id: str
                   className="object-cover w-full h-full"
                 />
               ) : (
-                <span>{specialtyIcons[practitioner.specialty]}</span>
+                <img
+                  src={specialtyIcons[practitioner.specialty]}
+                  alt={practitioner.specialty}
+                  width={40}
+                  height={40}
+                />
               )}
             </div>
 

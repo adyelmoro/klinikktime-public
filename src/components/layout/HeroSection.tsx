@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from '@/components/ui/Button'
+import { useLanguage } from '@/i18n/context'
 
 const StarIcon = () => (
   <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor">
@@ -47,6 +48,8 @@ const PersonIcon = () => (
 )
 
 export function HeroSection() {
+  const { t } = useLanguage()
+
   return (
     <section className="bg-white relative overflow-hidden border-b border-[#E5E7EB]">
       {/* Right-side gradient wash */}
@@ -67,42 +70,41 @@ export function HeroSection() {
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EBF3FD] text-[#1A6BCC] text-[13px] font-semibold mb-6 border border-[#C8DCF5]">
               <span className="text-[#1A6BCC]"><StarIcon /></span>
-              <span>Norsk privatpraksis · Rask timebestilling</span>
+              <span>{t.home.heroBadge}</span>
             </div>
 
             {/* Headline */}
             <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-bold text-[#111827] leading-[1.08] tracking-tight">
-              Book time hos{' '}
+              {t.home.heroTitlePrefix}{' '}
               <span className="text-[#1A6BCC] relative inline-block">
-                norske
+                {t.home.heroTitleHighlight}
                 {/* Underline accent */}
                 <svg className="absolute -bottom-1 left-0 w-full" height="6" viewBox="0 0 160 6" preserveAspectRatio="none" fill="none">
                   <path d="M0 5C40 1 120 1 160 5" stroke="#1A6BCC" strokeWidth="2.5" strokeLinecap="round" opacity="0.4" />
                 </svg>
               </span>{' '}
-              spesialister
+              {t.home.heroTitleSuffix}
             </h1>
 
             {/* Sub-copy */}
             <p className="mt-5 text-[17px] text-[#6B7280] leading-relaxed max-w-[480px]">
-              Velg behandler, sjekk ledige tider og betal enkelt med Vipps.
-              Trygg identifisering med BankID — alt på ett sted.
+              {t.home.heroSubtitle}
             </p>
 
             {/* CTAs */}
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Link href="/practitioners">
-                <Button size="lg">Finn behandler</Button>
+                <Button size="lg">{t.home.heroCta}</Button>
               </Link>
               <Link href="/practitioners">
-                <Button variant="secondary" size="lg">Se alle spesialister</Button>
+                <Button variant="secondary" size="lg">{t.home.heroCta2}</Button>
               </Link>
             </div>
 
             {/* Trust logos */}
             <div className="mt-8 pt-8 border-t border-[#E5E7EB]">
               <p className="text-[11px] text-[#9CA3AF] uppercase tracking-widest font-semibold mb-3">
-                Trygg betaling og ID-verifisering
+                {t.home.trustLabel}
               </p>
               <div className="flex items-center gap-5">
                 <Image
@@ -136,22 +138,22 @@ export function HeroSection() {
             <div className="mt-7 flex items-center gap-6 flex-wrap">
               <div>
                 <div className="text-2xl font-bold text-[#111827] leading-none">50+</div>
-                <div className="text-xs text-[#9CA3AF] mt-1">Behandlere</div>
+                <div className="text-xs text-[#9CA3AF] mt-1">{t.home.statPractitioners}</div>
               </div>
               <div className="w-px h-7 bg-[#E5E7EB]" />
               <div>
                 <div className="text-2xl font-bold text-[#111827] leading-none">4</div>
-                <div className="text-xs text-[#9CA3AF] mt-1">Spesialiteter</div>
+                <div className="text-xs text-[#9CA3AF] mt-1">{t.home.statSpecialties}</div>
               </div>
               <div className="w-px h-7 bg-[#E5E7EB]" />
               <div>
                 <div className="text-2xl font-bold text-[#111827] leading-none">100%</div>
-                <div className="text-xs text-[#9CA3AF] mt-1">Norsk</div>
+                <div className="text-xs text-[#9CA3AF] mt-1">{t.home.statNorwegian}</div>
               </div>
               <div className="w-px h-7 bg-[#E5E7EB]" />
               <div>
                 <div className="text-2xl font-bold text-[#111827] leading-none">24t</div>
-                <div className="text-xs text-[#9CA3AF] mt-1">Avbestilling</div>
+                <div className="text-xs text-[#9CA3AF] mt-1">{t.home.statCancellation}</div>
               </div>
             </div>
           </div>
@@ -252,7 +254,7 @@ export function HeroSection() {
               style={{ top: '24px', right: '-4px' }}
             >
               <div className="w-2 h-2 rounded-full bg-[#059669] flex-shrink-0 animate-pulse" />
-              <span className="text-xs font-semibold text-[#111827] whitespace-nowrap">Neste ledig: i dag</span>
+              <span className="text-xs font-semibold text-[#111827] whitespace-nowrap">{t.home.nextAvailable}</span>
             </div>
 
             {/* ── Floating pill: specialties ── */}
@@ -266,7 +268,7 @@ export function HeroSection() {
                   <path d="M6 20C6 16.686 8.686 14 12 14C15.314 14 18 16.686 18 20" stroke="#7C3AED" strokeWidth="2" strokeLinecap="round" fill="none" />
                 </svg>
               </div>
-              <span className="text-xs font-semibold text-[#111827] whitespace-nowrap">4 spesialiteter tilgjengelig</span>
+              <span className="text-xs font-semibold text-[#111827] whitespace-nowrap">{t.home.specialtiesAvailable}</span>
             </div>
 
           </div>

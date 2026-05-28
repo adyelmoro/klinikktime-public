@@ -70,7 +70,7 @@ function BookingForm() {
           patientId: auth.userId,
           patientEmail: auth.email,
           patientName: auth.name,
-          patientPhone: phone || null,
+          patientPhone: phone ? `+47${phone}` : null,
           reason: reason || null,
         }),
       })
@@ -126,7 +126,7 @@ function BookingForm() {
             </div>
             {practitioner.consultation_fee_nok && (
               <p className="text-lg font-bold text-[#1A6BCC]">
-                {practitioner.consultation_fee_nok} {t.common.nok}
+                {(practitioner.consultation_fee_nok / 100).toFixed(0)} {t.common.nok}
               </p>
             )}
           </div>
@@ -172,14 +172,19 @@ function BookingForm() {
 
           <div>
             <label className="block text-sm font-medium text-[#111827] mb-1">{t.booking.phone}</label>
-            <input
-              type="tel"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              placeholder="+47 900 00 000"
-              disabled={!auth}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#1A6BCC] focus:border-transparent disabled:bg-gray-50 disabled:text-gray-400"
-            />
+            <div className="flex">
+              <span className="inline-flex items-center px-3 rounded-l-lg border border-r-0 border-gray-300 bg-gray-50 text-[#6B7280] text-sm font-medium select-none">
+                +47
+              </span>
+              <input
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value.replace(/\D/g, '').slice(0, 8))}
+                placeholder="900 00 000"
+                disabled={!auth}
+                className="flex-1 border border-gray-300 rounded-r-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#1A6BCC] focus:border-transparent disabled:bg-gray-50 disabled:text-gray-400"
+              />
+            </div>
           </div>
 
           <div>

@@ -21,9 +21,21 @@ export const en: Translations = {
   home: {
     heroTitle: 'Book an appointment with a private specialist',
     heroSubtitle: 'Find available slots with qualified practitioners. Pay with Vipps. Verify with BankID.',
-    heroCta: 'Find an appointment',
+    heroCta: 'Find practitioners',
     browseTitle: 'Our practitioners',
     browseSubtitle: 'Choose a specialty and find a time that works for you',
+    heroBadge: 'Norwegian private practice · Fast booking',
+    heroTitlePrefix: 'Book appointments with',
+    heroTitleHighlight: 'Norwegian',
+    heroTitleSuffix: 'specialists',
+    heroCta2: 'See all specialists',
+    trustLabel: 'Secure payment and ID verification',
+    statPractitioners: 'Practitioners',
+    statSpecialties: 'Specialties',
+    statNorwegian: 'Norwegian',
+    statCancellation: 'Cancellation',
+    nextAvailable: 'Next available: today',
+    specialtiesAvailable: '4 specialties available',
   },
 
   practitioner: {

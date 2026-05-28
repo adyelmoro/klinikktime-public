@@ -22,9 +22,21 @@ export const no: Translations = {
   home: {
     heroTitle: 'Book time hos en privatspesialist',
     heroSubtitle: 'Finn ledige timer hos kvalifiserte behandlere. Betal med Vipps. Bekreft med BankID.',
-    heroCta: 'Finn en time',
+    heroCta: 'Finn behandler',
     browseTitle: 'Våre behandlere',
     browseSubtitle: 'Velg spesialitet og finn en time som passer deg',
+    heroBadge: 'Norsk privatpraksis · Rask timebestilling',
+    heroTitlePrefix: 'Book time hos',
+    heroTitleHighlight: 'norske',
+    heroTitleSuffix: 'spesialister',
+    heroCta2: 'Se alle spesialister',
+    trustLabel: 'Trygg betaling og ID-verifisering',
+    statPractitioners: 'Behandlere',
+    statSpecialties: 'Spesialiteter',
+    statNorwegian: 'Norsk',
+    statCancellation: 'Avbestilling',
+    nextAvailable: 'Neste ledig: i dag',
+    specialtiesAvailable: '4 spesialiteter tilgjengelig',
   },
 
   // Practitioner
@@ -138,6 +150,10 @@ export interface Translations {
   home: {
     heroTitle: string; heroSubtitle: string; heroCta: string
     browseTitle: string; browseSubtitle: string
+    heroBadge: string; heroTitlePrefix: string; heroTitleHighlight: string; heroTitleSuffix: string
+    heroCta2: string; trustLabel: string
+    statPractitioners: string; statSpecialties: string; statNorwegian: string; statCancellation: string
+    nextAvailable: string; specialtiesAvailable: string
   }
   practitioner: {
     bookCta: string; languages: string; fee: string
