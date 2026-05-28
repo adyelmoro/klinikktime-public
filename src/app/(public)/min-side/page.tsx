@@ -171,7 +171,20 @@ export default function MinSidePage() {
         <div>
           <h1 className="text-2xl font-bold text-[#111827]">{t.dashboard.title}</h1>
           {userEmail && (
-            <p className="text-sm text-[#6B7280] mt-1">{userEmail}</p>
+            <div className="flex items-center gap-2 mt-1">
+              <p className="text-sm text-[#6B7280]">{userEmail}</p>
+              <button
+                onClick={async () => {
+                  await supabase.auth.signOut()
+                  setUserId(null)
+                  setUserEmail('')
+                  setAppointments([])
+                }}
+                className="text-xs text-[#9CA3AF] hover:text-[#6B7280] underline transition-colors"
+              >
+                {t.dashboard.switchAccount}
+              </button>
+            </div>
           )}
         </div>
         <Link href="/practitioners">
@@ -459,7 +472,7 @@ export default function MinSidePage() {
                 </div>
               ) : (
                 <div className="bg-green-50 border border-green-200 rounded-xl p-3 mb-4 text-sm text-green-700 text-center">
-                  {t.dashboard.cancelFreeUntil} 24{language === 'no' ? 't' : 'h'} — refusjon via Vipps
+                  {t.dashboard.cancelFreeUntil}
                 </div>
               )
             })()}
@@ -474,7 +487,7 @@ export default function MinSidePage() {
                 disabled={cancelState.loading}
                 className="flex-1 py-2.5 rounded-xl border border-gray-200 text-sm font-medium text-[#6B7280] hover:bg-gray-50 transition-colors disabled:opacity-50"
               >
-                {t.common.cancel}
+                {t.dashboard.keepAppointment}
               </button>
               <button
                 onClick={confirmCancel}
@@ -484,7 +497,7 @@ export default function MinSidePage() {
                 {cancelState.loading && (
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                 )}
-                {t.dashboard.cancel}
+                {t.dashboard.cancelAppointment}
               </button>
             </div>
           </div>

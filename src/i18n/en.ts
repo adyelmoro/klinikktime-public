@@ -95,11 +95,15 @@ export const en: Translations = {
     noPast: 'You have no past appointments',
     showQr: 'Show QR code',
     cancel: 'Cancel',
+    cancelAppointment: 'Cancel appointment',
+    keepAppointment: 'Keep appointment',
     cancelConfirm: 'Are you sure you want to cancel this appointment?',
-    cancelFreeUntil: 'Free cancellation until',
-    cancelNoRefund: 'Cancellation after the deadline does not qualify for a refund',
+    cancelFreeUntil: 'Free cancellation – refund via Vipps',
+    cancelNoRefund: 'Cancellation within 24 hours does not qualify for a refund',
+    refundViaVipps: 'Refund via Vipps',
     waitlistStatus: 'You are on the waitlist for',
     leaveWaitlist: 'Leave waitlist',
+    switchAccount: 'Switch account',
   },
 
   status: {

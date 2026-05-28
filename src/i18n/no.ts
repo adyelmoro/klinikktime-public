@@ -102,11 +102,15 @@ export const no: Translations = {
     noPast: 'Du har ingen tidligere timer',
     showQr: 'Vis QR-kode',
     cancel: 'Avbestill',
+    cancelAppointment: 'Avbestill time',
+    keepAppointment: 'Behold time',
     cancelConfirm: 'Er du sikker på at du vil avbestille denne timen?',
-    cancelFreeUntil: 'Gratis avbestilling frem til',
-    cancelNoRefund: 'Avbestilling etter fristen gir ikke refusjon',
+    cancelFreeUntil: 'Gratis avbestilling – refusjon via Vipps',
+    cancelNoRefund: 'Avbestilling innen 24 timer gir ikke refusjon',
+    refundViaVipps: 'Refusjon via Vipps',
     waitlistStatus: 'Du er på venteliste hos',
     leaveWaitlist: 'Forlat venteliste',
+    switchAccount: 'Bytt konto',
   },
 
   // Status badges
@@ -178,8 +182,9 @@ export interface Translations {
   }
   dashboard: {
     title: string; upcoming: string; past: string; noUpcoming: string; noPast: string
-    showQr: string; cancel: string; cancelConfirm: string; cancelFreeUntil: string
-    cancelNoRefund: string; waitlistStatus: string; leaveWaitlist: string
+    showQr: string; cancel: string; cancelAppointment: string; keepAppointment: string
+    cancelConfirm: string; cancelFreeUntil: string; cancelNoRefund: string
+    refundViaVipps: string; waitlistStatus: string; leaveWaitlist: string; switchAccount: string
   }
   status: {
     pending: string; confirmed: string; cancelled: string; completed: string
