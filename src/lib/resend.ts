@@ -1,6 +1,12 @@
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+// Lazy-initialised — avoids build-time crash when RESEND_API_KEY is not set
+function getResend() {
+  const key = process.env.RESEND_API_KEY
+  if (!key) throw new Error('RESEND_API_KEY is not set')
+  return new Resend(key)
+}
+
 const FROM = process.env.RESEND_FROM_EMAIL ?? 'noreply@klinikktime.no'
 
 interface BookingEmailData {
@@ -16,7 +22,7 @@ interface BookingEmailData {
 }
 
 export async function sendBookingConfirmation(data: BookingEmailData) {
-  return resend.emails.send({
+  return getResend().emails.send({
     from: `Klinikktime <${FROM}>`,
     to: data.to,
     subject: `Timebekreftelse: ${data.practitionerName} — ${data.date}`,
@@ -43,7 +49,7 @@ export async function sendCancellationEmail(data: {
     ? `Avbestilling bekreftet — refusjon initiert`
     : `Avbestilling bekreftet — ingen refusjon`
 
-  return resend.emails.send({
+  return getResend().emails.send({
     from: `Klinikktime <${FROM}>`,
     to: data.to,
     subject,
@@ -57,7 +63,7 @@ export async function sendWaitlistNotification(data: {
   practitionerName: string
   bookingUrl: string
 }) {
-  return resend.emails.send({
+  return getResend().emails.send({
     from: `Klinikktime <${FROM}>`,
     to: data.to,
     subject: `Ledig time tilgjengelig hos ${data.practitionerName}`,
