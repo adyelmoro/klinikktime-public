@@ -177,20 +177,25 @@ export default function MinSidePage() {
         <div>
           <h1 className="text-2xl font-bold text-[#111827]">{t.dashboard.title}</h1>
           {userEmail && (
-            <div className="flex items-center gap-2 mt-1">
-              <p className="text-sm text-[#6B7280]">{userEmail}</p>
-              <button
-                onClick={async () => {
-                  await supabase.auth.signOut()
-                  setUserId(null)
-                  setUserEmail('')
-                  setAppointments([])
-                }}
-                className="text-xs text-[#9CA3AF] hover:text-[#6B7280] underline transition-colors"
-              >
-                {t.dashboard.switchAccount}
-              </button>
-            </div>
+            <p className="text-sm text-[#6B7280] mt-1 truncate max-w-[200px] sm:max-w-none">{userEmail}</p>
+          )}
+        </div>
+        <div className="flex items-center gap-2 flex-shrink-0">
+          {userEmail && (
+            <button
+              onClick={async () => {
+                await supabase.auth.signOut()
+                setUserId(null)
+                setUserEmail('')
+                setAppointments([])
+              }}
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#6B7280] border border-[#E5E7EB] rounded-lg hover:bg-[#F5F7FA] hover:text-[#374151] transition-colors"
+            >
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                <path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              {t.dashboard.switchAccount}
+            </button>
           )}
         </div>
         <Link href="/practitioners">
