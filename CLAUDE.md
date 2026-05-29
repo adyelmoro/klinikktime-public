@@ -4,7 +4,7 @@
 **Project directory:** A:\ClaudeAI\MyAI-Projects\klinikktime
 **Parent context:** A:\ClaudeAI\MyAI-Projects\CLAUDE.md
 **Session name:** Klinikktime - Project
-**Status:** 🔲 PLANNING COMPLETE — ready to build Phase 0
+**Status:** 🔨 IN PROGRESS — Phase 0 ✅ Phase 1 ✅ Phase 2 ✅ Phase 3 ✅ — Phase 4 (admin panel) next
 
 ---
 
@@ -108,24 +108,89 @@ The live Vercel deployment builds from the private repo. The public repo shows a
 
 | Phase | Name | Status |
 |-------|------|--------|
-| 0 | Project setup | 🔲 Not started |
-| 1 | Foundation + browsing | 🔲 Not started |
-| 2 | Auth + booking flow | 🔲 Not started |
-| 3 | Patient dashboard | 🔲 Not started |
-| 4 | Admin panel | 🔲 Not started |
+| 0 | Project setup | ✅ Complete — 2026-05-26 |
+| 1 | Foundation + browsing | ✅ Complete — 2026-05-26 |
+| 2 | Auth + booking flow | ✅ Complete — 2026-05-28 |
+| 3 | Patient dashboard | ✅ Complete — 2026-05-28 |
+| 4 | Admin panel | 🔨 Next — starting 2026-05-29 |
 | 5 | Polish + deploy | 🔲 Not started |
 | v2 | Multi-tenant, flexible slots, real Vipps | 🔲 Future |
 
 ---
 
-## Environment Variables (to configure)
+## Technical Notes
+
+**Supabase project:** `ifgvmbhwmpmmkecfexxd` — eu-west-1, second Supabase account (free tier)
+**GitHub:** https://github.com/adyelmoro/klinikktime (public repo — single repo, Ayyad's choice)
+**Vercel:** https://klinikktime.vercel.app ✅ LIVE and working (Framework Preset fixed 2026-05-28)
+**Git author:** adyelmoro / iamayyad@gmail.com (fixed from ayadaz/ay.ad.az@hotmail.com 2026-05-28)
+
+**Phase 0 delivered (2026-05-26):**
+- Next.js 16, TypeScript strict, Tailwind CSS v4 with full design token system
+- Supabase SSR client (browser + server + service role)
+- All 6 DB tables live with RLS policies + seed data (4 practitioners, availability templates)
+- Full lib layer: availability.ts, vipps-mock.ts, waitlist.ts, resend.ts, ical.ts, qr.ts
+- i18n system: no.ts + en.ts + LanguageProvider with cookie persistence
+- `supabase/run_all.sql` — single-file migration for future resets
+
+**Phase 1 delivered (2026-05-26):**
+- Layout: Header, Footer, LanguageToggle
+- UI primitives: Button, Badge, Skeleton
+- PractitionerCard, PractitionerCardSkeleton
+- AvailabilityCalendar (month picker + day selection)
+- SlotPicker (live slots from Supabase, available/unavailable states)
+- API routes: /api/practitioners, /api/practitioners/[id], /api/availability/[practitionerId]
+- Pages: / (homepage with hero + grid), /practitioners, /practitioners/[id] (profile)
+- All loading skeletons + empty states
+
+**Phase 2 delivered (2026-05-28):**
+- BankIDModal (SSN input → 10s countdown → anonymous auth fallback → Supabase session)
+- BankIDButton wrapper component with geometric bar mark SVG
+- booking/new page (BankID gate → booking details → Vipps payment initiation)
+- vipps-redirect page (loading → confirming → done → countdown redirect)
+- booking/confirmation/[id] page (appointment details + QR code + iCal download)
+- API routes: /api/vipps/initiate, /api/vipps/callback, /api/appointments/[id], /api/appointments/[id]/ical
+- Resend lazy init (avoids build crash when RESEND_API_KEY unset)
+- All 14 SVG icons committed to public/icons/ (logo, BankID, Vipps, specialty icons)
+- HeroSection fully bilingual (12 new i18n keys in home namespace)
+- Tested end-to-end on Vercel: BankID → slot → booking → Vipps → confirmation → QR code ✅
+
+**Phase 3 delivered (2026-05-28):**
+- `/min-side` patient dashboard: BankID gate, upcoming/past tabs, appointment cards
+- QR modal (lazy-fetched per appointment), iCal download link
+- Cancel flow: 24h window detection, confirmation modal, mock Vipps refund
+- "Switch account" button: `supabase.auth.signOut()` + state reset
+- API routes: /api/appointments (GET by patientId), /api/appointments/[id]/cancel (PATCH)
+- i18n: 6 new dashboard keys (cancelAppointment, keepAppointment, cancelFreeUntil, cancelNoRefund, refundViaVipps, switchAccount)
+- Tested end-to-end on Vercel ✅
+
+**Bug fixes delivered (2026-05-28 session):**
+- AvailabilityCalendar: fixed UTC timezone bug — `toISOString()` shifted date for Norwegian users (UTC+2). Replaced with local date parts (`getFullYear/getMonth/getDate`)
+- availability.ts: removed `jsDay-1` conversion (DB uses 1=Mon matching JS getDay()), fixed date parsing to noon to prevent UTC shift, fixed isToday check
+- BankID incognito bug: added `/api/auth/bankid-demo` server route using admin SDK to find-or-create user with `email_confirm: true` so `signInWithPassword` always works — same SSN always = same userId = same appointments visible
+- Confirmation page: `router.push('/dashboard')` → `/min-side` (was 404), `amount_nok / 100` for display (was showing 150000 instead of 1500 kr)
+- Demo seed data: ~100 appointments across Lars/Ingrid/Jonas/Marte/Nina for June–July 2026, creates realistic busy/available calendar pattern
+
+**Quirks / gotchas:**
+- `consultation_fee_nok` stored in øre — always divide by 100 for display
+- `amount_nok` on appointments table is also in øre — always divide by 100
+- Supabase `.select()` with joins returns `never` — cast with `(supabase as any)` + explicit interface
+- iCal: `Buffer` not assignable to NextResponse body — use `new Uint8Array(icalBuffer)`
+- BankID auth: requires `/api/auth/bankid-demo` to be called first (admin creates confirmed user), THEN `signInWithPassword` works. Anonymous fallback still in place.
+- BankID anonymous fallback: requires "Anonymous sign-ins" enabled in Supabase dashboard (Authentication → Providers → Anonymous Users)
+- Vercel Hobby: blocked deployments if commit author ≠ Vercel account owner
+- Demo appointments: seeded with `patient_id = (SELECT id FROM auth.users LIMIT 1)` — FK requires a real auth user
+- `practitioners.name` not `full_name` — the column is `name`
+
+## Environment Variables (configured on Vercel)
 
 ```
-NEXT_PUBLIC_SUPABASE_URL=
-NEXT_PUBLIC_SUPABASE_ANON_KEY=
-SUPABASE_SERVICE_ROLE_KEY=
-RESEND_API_KEY=
-NEXT_PUBLIC_BASE_URL=http://localhost:3000
+NEXT_PUBLIC_SUPABASE_URL=https://ifgvmbhwmpmmkecfexxd.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGci...RcI
+SUPABASE_SERVICE_ROLE_KEY=eyJhbGci...V80
+RESEND_API_KEY=         ← not yet configured (Ayyad to add when ready)
+RESEND_FROM_EMAIL=noreply@klinikktime.no
+NEXT_PUBLIC_BASE_URL=https://klinikktime.vercel.app
 VIPPS_CLIENT_ID=mock
 VIPPS_CLIENT_SECRET=mock
 VIPPS_MERCHANT_SERIAL_NUMBER=mock

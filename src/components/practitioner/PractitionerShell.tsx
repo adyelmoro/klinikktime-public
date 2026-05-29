@@ -1,25 +1,30 @@
 'use client'
 
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
+import { createClient } from '@/lib/supabase/client'
+
+const PRIMARY = '#0d9463'
+const PRIMARY_LIGHT = '#e6f5ee'
+const PRIMARY_HOVER = '#0b7d52'
 
 const NAV = [
   {
-    href: '/admin',
+    href: '/min-klinikk',
     label: 'Dagsskjema',
     icon: (active: boolean) => (
-      <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke={active ? '#1A6BCC' : '#6B7280'} strokeWidth={2}>
+      <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke={active ? PRIMARY : '#6B7280'} strokeWidth={2}>
         <rect x="3" y="4" width="18" height="18" rx="2" strokeLinecap="round" />
         <path d="M16 2v4M8 2v4M3 10h18" strokeLinecap="round" />
       </svg>
     ),
   },
   {
-    href: '/admin/appointments',
-    label: 'Alle timer',
+    href: '/min-klinikk/appointments',
+    label: 'Mine timer',
     icon: (active: boolean) => (
-      <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke={active ? '#1A6BCC' : '#6B7280'} strokeWidth={2}>
+      <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke={active ? PRIMARY : '#6B7280'} strokeWidth={2}>
         <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2" strokeLinecap="round" />
         <rect x="9" y="3" width="6" height="4" rx="1" />
         <path d="M9 12h6M9 16h4" strokeLinecap="round" />
@@ -27,57 +32,80 @@ const NAV = [
     ),
   },
   {
-    href: '/admin/analytics',
+    href: '/min-klinikk/analytics',
     label: 'Analyse',
     icon: (active: boolean) => (
-      <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke={active ? '#1A6BCC' : '#6B7280'} strokeWidth={2}>
+      <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke={active ? PRIMARY : '#6B7280'} strokeWidth={2}>
         <path d="M18 20V10M12 20V4M6 20v-6" strokeLinecap="round" />
       </svg>
     ),
   },
   {
-    href: '/admin/availability',
+    href: '/min-klinikk/availability',
     label: 'Tilgjengelighet',
     icon: (active: boolean) => (
-      <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke={active ? '#1A6BCC' : '#6B7280'} strokeWidth={2}>
+      <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke={active ? PRIMARY : '#6B7280'} strokeWidth={2}>
         <circle cx="12" cy="12" r="9" />
         <path d="M12 7v5l3 3" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
   },
-  {
-    href: '/admin/practitioners',
-    label: 'Behandlere',
-    icon: (active: boolean) => (
-      <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke={active ? '#1A6BCC' : '#6B7280'} strokeWidth={2}>
-        <circle cx="9" cy="7" r="3" />
-        <path d="M3 20c0-3.314 2.686-6 6-6s6 2.686 6 6" strokeLinecap="round" />
-        <path d="M16 3.13a4 4 0 010 7.75M21 20c0-2.761-2.239-5-5-5" strokeLinecap="round" />
-      </svg>
-    ),
-  },
 ]
 
-export function AdminShell({ children }: { children: React.ReactNode }) {
+interface Props {
+  children: React.ReactNode
+  practitionerName: string
+  practitionerSpecialty: string
+}
+
+const SPECIALTY_NO: Record<string, string> = {
+  physio: 'Fysioterapi', psychology: 'Psykologi', sports_medicine: 'Idrettsmedisin',
+  nutritionist: 'Ernæring', private_gp: 'Fastlege',
+}
+
+export function PractitionerShell({ children, practitionerName, practitionerSpecialty }: Props) {
   const pathname = usePathname()
-  const router = useRouter()
 
   async function handleLogout() {
-    await fetch('/api/admin/auth', { method: 'DELETE' })
-    router.refresh()
+    const supabase = createClient()
+    await supabase.auth.signOut()
+    window.location.href = '/min-klinikk'
   }
+
+  const initials = practitionerName.split(' ').map((n) => n[0]).join('').slice(0, 2).toUpperCase()
 
   return (
     <div className="min-h-screen flex bg-[#F5F7FA]">
       {/* Sidebar */}
       <aside className="w-56 flex-shrink-0 bg-white border-r border-[#E5E7EB] flex flex-col fixed inset-y-0 left-0 z-30">
+
         {/* Logo */}
         <div className="px-5 py-5 border-b border-[#E5E7EB]">
           <div className="flex items-center gap-2.5">
             <Image src="/icons/logo.svg" alt="Klinikktime" width={28} height={28} />
             <div>
               <p className="font-bold text-[#111827] text-sm leading-tight">Klinikktime</p>
-              <span className="text-[10px] font-semibold text-[#1A6BCC] uppercase tracking-wide">Admin</span>
+              <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: PRIMARY }}>
+                Behandler
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Practitioner identity */}
+        <div className="px-4 py-3 border-b border-[#F3F4F6]">
+          <div className="flex items-center gap-2.5">
+            <div
+              className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
+              style={{ backgroundColor: PRIMARY }}
+            >
+              {initials}
+            </div>
+            <div className="min-w-0">
+              <p className="text-xs font-semibold text-[#111827] truncate">{practitionerName}</p>
+              <p className="text-[10px] text-[#9CA3AF] truncate">
+                {SPECIALTY_NO[practitionerSpecialty] ?? practitionerSpecialty}
+              </p>
             </div>
           </div>
         </div>
@@ -90,11 +118,17 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
               <Link
                 key={href}
                 href={href}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
-                  active
-                    ? 'bg-[#EBF3FD] text-[#1A6BCC]'
-                    : 'text-[#6B7280] hover:bg-[#F5F7FA] hover:text-[#374151]'
-                }`}
+                className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors"
+                style={{
+                  backgroundColor: active ? PRIMARY_LIGHT : undefined,
+                  color: active ? PRIMARY : '#6B7280',
+                }}
+                onMouseEnter={(e) => {
+                  if (!active) (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '#F5F7FA'
+                }}
+                onMouseLeave={(e) => {
+                  if (!active) (e.currentTarget as HTMLAnchorElement).style.backgroundColor = ''
+                }}
               >
                 {icon(active)}
                 {label}
@@ -126,7 +160,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         </div>
       </aside>
 
-      {/* Main content */}
+      {/* Main */}
       <main className="flex-1 ml-56 min-h-screen">
         {children}
       </main>
