@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
 
 const PRIMARY = '#0d9463'
@@ -81,7 +80,7 @@ export function PractitionerShell({ children, practitionerName, practitionerSpec
       <div className="px-5 py-5 border-b border-[#E5E7EB]">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <Image src="/icons/logo.svg" alt="Klinikktime" width={28} height={28} />
+            <img src="/icons/logo-icon.svg" alt="Klinikktime" width={28} height={28} />
             <div>
               <p className="font-bold text-[#111827] text-sm leading-tight">Klinikktime</p>
               <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: PRIMARY }}>
@@ -171,7 +170,7 @@ export function PractitionerShell({ children, practitionerName, practitionerSpec
       {/* Mobile top bar */}
       <div className="sm:hidden fixed top-0 left-0 right-0 z-40 bg-white border-b border-[#E5E7EB] h-14 flex items-center justify-between px-4">
         <div className="flex items-center gap-2">
-          <Image src="/icons/logo.svg" alt="Klinikktime" width={24} height={24} />
+          <img src="/icons/logo-icon.svg" alt="Klinikktime" width={24} height={24} />
           <div>
             <span className="font-bold text-sm text-[#111827]">Klinikktime</span>
             <span className="ml-1.5 text-[10px] font-semibold uppercase tracking-wide" style={{ color: PRIMARY }}>

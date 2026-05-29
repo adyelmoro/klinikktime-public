@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
 
 export function AdminLogin() {
   const [password, setPassword] = useState('')
@@ -38,7 +37,7 @@ export function AdminLogin() {
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-2.5 mb-3">
-            <Image src="/icons/logo.svg" alt="Klinikktime" width={36} height={36} />
+            <img src="/icons/logo-icon.svg" alt="Klinikktime" width={36} height={36} />
             <span className="text-xl font-bold text-[#111827]">Klinikktime</span>
           </div>
           <span className="inline-block px-2.5 py-0.5 rounded-full bg-[#1A6BCC] text-white text-xs font-semibold tracking-wide uppercase">

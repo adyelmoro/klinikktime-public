@@ -4,7 +4,7 @@
 **Project directory:** A:\ClaudeAI\MyAI-Projects\klinikktime
 **Parent context:** A:\ClaudeAI\MyAI-Projects\CLAUDE.md
 **Session name:** Klinikktime - Project
-**Status:** 🔨 IN PROGRESS — Phase 0 ✅ Phase 1 ✅ Phase 2 ✅ Phase 3 ✅ — Phase 4 (admin panel) next
+**Status:** 🔨 IN PROGRESS — Phase 0 ✅ Phase 1 ✅ Phase 2 ✅ Phase 3 ✅ Phase 4 ✅ Phase 4.5 ✅ — Phase 5 (polish + deploy) next
 
 ---
 
@@ -112,9 +112,11 @@ The live Vercel deployment builds from the private repo. The public repo shows a
 | 1 | Foundation + browsing | ✅ Complete — 2026-05-26 |
 | 2 | Auth + booking flow | ✅ Complete — 2026-05-28 |
 | 3 | Patient dashboard | ✅ Complete — 2026-05-28 |
-| 4 | Admin panel | 🔨 Next — starting 2026-05-29 |
+| 4 | Admin panel | ✅ Complete — 2026-05-29 |
+| 4.5 | Practitioner portal | ✅ Complete — 2026-05-29 |
 | 5 | Polish + deploy | 🔲 Not started |
-| v2 | Multi-tenant, flexible slots, real Vipps | 🔲 Future |
+| Mobile | React Native companion app | 🔲 After web ships |
+| v2 | Multi-tenant, flexible slots, real Vipps | 🔲 Future (needs org nr) |
 
 ---
 
@@ -197,6 +199,41 @@ VIPPS_MERCHANT_SERIAL_NUMBER=mock
 ```
 
 ---
+
+**Phase 4 delivered (2026-05-29):**
+- Admin layout: httpOnly cookie auth (`klinikktime_admin`, `demo1234`), AdminShell with 5-item nav
+- `/admin` — today's schedule: Supabase Realtime live updates, QR check-in bar (8-char token prefix match), status action buttons (Merk ankommet / Fullført / Ikke møtt), 4 stat cards
+- `/admin/appointments` — all appointments with date/status/search filters
+- `/admin/analytics` — recharts LineChart (bookings/day), PieChart (specialty), BarChart (per practitioner); 4 stat cards
+- `/admin/availability` — @dnd-kit drag-to-reorder, active/inactive toggle, add/delete templates, per-practitioner selector
+- `/admin/practitioners` — create/remove per-practitioner Supabase Auth accounts
+- API routes: /api/admin/auth (POST/DELETE), /api/admin/appointments (GET), /api/admin/appointments/[id] (PATCH), /api/admin/analytics (GET), /api/admin/availability (GET/POST), /api/admin/availability/[id] (PATCH/DELETE), /api/admin/practitioners (GET), /api/admin/practitioners/[id]/create-account (POST/DELETE)
+- Demo seed SQL: 6 appointments for 2026-05-29 with mixed statuses + organisation_id fix
+- QR bug fix: qr.ts now encodes raw token (not URL), modal shows 8-char prefix, admin matches on prefix
+
+**Phase 4.5 delivered (2026-05-29) — code complete, testing pending:**
+- Practitioner portal at `/min-klinikk` — teal/green `#0d9463` scheme, "BEHANDLER" badge
+- PractitionerLogin: Supabase `signInWithPassword` (email+password) — completely separate from admin cookie auth
+- PractitionerShell: fixed sidebar with practitioner name + specialty identity card, initials avatar
+- `/min-klinikk` — today's schedule (own appointments only), Realtime, status actions, no QR bar
+- `/min-klinikk/appointments` — all own appointments, filters, patient contact details hidden
+- `/min-klinikk/analytics` — personal stats: monthly totals, revenue, avg/day, line chart, status bar chart
+- `/min-klinikk/availability` — own templates, full drag-drop editor, same UX as admin
+- `getPractitionerFromSession()` helper in `src/lib/practitioner-auth.ts` — validates every API route
+- All 6 `/api/practitioner/` routes enforce ownership server-side (not just UI filtering)
+- DB migration required: `ALTER TABLE practitioners ADD COLUMN IF NOT EXISTS user_id UUID REFERENCES auth.users(id) ON DELETE SET NULL;`
+
+**Strategic decisions locked (2026-05-29 session):**
+- Practitioner portal: multi-auth per-practitioner (admin creates accounts), `/min-klinikk`, teal `#0d9463`
+- Public repo: https://github.com/adyelmoro/klinikktime-public.git — populate ONCE at end before shipping
+- React Native: Project 4, after web ships, native features include QR camera scan (centrepiece), push notifications, biometric lock
+- No deadline pressure — build everything completely before shipping
+- v2 = real Vipps (needs org nr) + multi-tenant + flexible slots — architecture already ready
+
+**Quirks / gotchas (additions):**
+- `appointments.organisation_id` is NOT NULL — always include in INSERT statements
+- Practitioner portal uses Supabase session cookie auth (not httpOnly cookie like admin)
+- If logged-in user has no matching `practitioners.user_id` row → PractitionerLogin shown (clean rejection)
 
 ## "Save and Update" Command
 

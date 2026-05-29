@@ -131,7 +131,7 @@ export default function AdminSchedulePage() {
       </div>
 
       {/* Stats row */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: 'Totalt i dag', value: total, color: 'text-[#111827]' },
           { label: 'Bekreftet', value: confirmed, color: 'text-[#1A6BCC]' },
@@ -155,7 +155,7 @@ export default function AdminSchedulePage() {
           </svg>
           QR Innsjekk
         </p>
-        <form onSubmit={handleQrCheckin} className="flex gap-3 items-center">
+        <form onSubmit={handleQrCheckin} className="flex flex-wrap gap-3 items-center">
           <input
             value={qrInput}
             onChange={(e) => setQrInput(e.target.value)}

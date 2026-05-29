@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/i18n/context'
 import { LanguageToggle } from './LanguageToggle'
@@ -24,7 +23,7 @@ export function Header() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
         {/* Logo */}
         <Link href="/" className="flex items-center flex-shrink-0" onClick={() => setMobileOpen(false)}>
-          <Image src="/icons/logo-wordmark.svg" alt="Klinikktime" width={165} height={36} priority />
+          <img src="/icons/logo-wordmark.svg" alt="Klinikktime" width={165} height={36} />
         </Link>
 
         {/* Desktop nav */}

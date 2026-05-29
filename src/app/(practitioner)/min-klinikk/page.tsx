@@ -93,7 +93,7 @@ export default function PractitionerSchedulePage() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         {[
           { label: 'Totalt i dag',  value: total,     color: 'text-[#111827]' },
           { label: 'Bekreftet',     value: confirmed,  color: '#0d9463' },

@@ -11,8 +11,6 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'),
   icons: {
     icon: { url: '/favicon.svg', type: 'image/svg+xml' },
-    shortcut: '/favicon.svg',
-    apple: '/favicon.svg',
   },
   openGraph: {
     siteName: 'Klinikktime',
