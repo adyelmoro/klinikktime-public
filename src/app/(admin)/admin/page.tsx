@@ -196,23 +196,23 @@ export default function AdminSchedulePage() {
             <table className="w-full text-sm">
               <thead className="bg-[#F9FAFB] border-b border-[#E5E7EB]">
                 <tr>
-                  {['Tid', 'Pasient', 'Behandler', 'Status', 'Handlinger'].map((h) => (
-                    <th key={h} className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase tracking-wide">
-                      {h}
-                    </th>
-                  ))}
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase tracking-wide">Tid</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase tracking-wide">Pasient</th>
+                  <th className="hidden sm:table-cell px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase tracking-wide">Behandler</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase tracking-wide">Status</th>
+                  <th className="hidden sm:table-cell px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase tracking-wide">Handlinger</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#F3F4F6]">
                 {appointments.map((appt) => (
                   <tr key={appt.id} className="hover:bg-[#FAFAFA] transition-colors">
-                    <td className="px-4 py-3.5 font-mono text-[#374151] whitespace-nowrap">
+                    <td className="px-4 py-3.5 font-mono text-[#374151] whitespace-nowrap text-xs sm:text-sm">
                       {appt.start_time.slice(0, 5)}–{appt.end_time.slice(0, 5)}
                     </td>
                     <td className="px-4 py-3.5">
-                      <p className="font-medium text-[#111827]">{appt.patient_name}</p>
+                      <p className="font-medium text-[#111827] text-sm">{appt.patient_name}</p>
                     </td>
-                    <td className="px-4 py-3.5 text-[#374151]">
+                    <td className="hidden sm:table-cell px-4 py-3.5 text-[#374151]">
                       {appt.practitioners?.name}
                     </td>
                     <td className="px-4 py-3.5">
@@ -220,7 +220,7 @@ export default function AdminSchedulePage() {
                         {STATUS_NO[appt.status] ?? appt.status}
                       </span>
                     </td>
-                    <td className="px-4 py-3.5">
+                    <td className="hidden sm:table-cell px-4 py-3.5">
                       <div className="flex items-center gap-2">
                         {appt.status === 'confirmed' && (
                           <button

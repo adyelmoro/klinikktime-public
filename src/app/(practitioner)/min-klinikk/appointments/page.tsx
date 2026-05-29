@@ -111,26 +111,26 @@ export default function PractitionerAppointmentsPage() {
             <table className="w-full text-sm">
               <thead className="bg-[#F9FAFB] border-b border-[#E5E7EB]">
                 <tr>
-                  {['Dato', 'Tid', 'Pasient', 'Status', 'Betaling'].map((h) => (
-                    <th key={h} className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase tracking-wide whitespace-nowrap">
-                      {h}
-                    </th>
-                  ))}
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase tracking-wide whitespace-nowrap">Dato</th>
+                  <th className="hidden sm:table-cell px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase tracking-wide whitespace-nowrap">Tid</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase tracking-wide whitespace-nowrap">Pasient</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase tracking-wide whitespace-nowrap">Status</th>
+                  <th className="hidden sm:table-cell px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase tracking-wide whitespace-nowrap">Betaling</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#F3F4F6]">
                 {filtered.map((appt) => (
                   <tr key={appt.id} className="hover:bg-[#FAFAFA] transition-colors">
-                    <td className="px-4 py-3.5 text-[#374151] whitespace-nowrap">
+                    <td className="px-4 py-3.5 text-[#374151] whitespace-nowrap text-xs sm:text-sm">
                       {new Date(appt.appointment_date + 'T12:00:00').toLocaleDateString('nb-NO', {
                         day: 'numeric', month: 'short', year: 'numeric',
                       })}
                     </td>
-                    <td className="px-4 py-3.5 font-mono text-[#374151] whitespace-nowrap">
+                    <td className="hidden sm:table-cell px-4 py-3.5 font-mono text-[#374151] whitespace-nowrap">
                       {appt.start_time.slice(0, 5)}
                     </td>
                     <td className="px-4 py-3.5">
-                      <p className="font-medium text-[#111827]">{appt.patient_name}</p>
+                      <p className="font-medium text-[#111827] text-sm">{appt.patient_name}</p>
                       <p className="text-xs text-[#9CA3AF]">#{appt.id.split('-')[0].toUpperCase()}</p>
                     </td>
                     <td className="px-4 py-3.5">
@@ -138,7 +138,7 @@ export default function PractitionerAppointmentsPage() {
                         {STATUS_NO[appt.status] ?? appt.status}
                       </span>
                     </td>
-                    <td className="px-4 py-3.5">
+                    <td className="hidden sm:table-cell px-4 py-3.5">
                       {appt.payment_status === 'paid' && appt.amount_nok ? (
                         <p className="text-xs font-semibold text-[#059669]">
                           {(appt.amount_nok / 100).toFixed(0)} kr

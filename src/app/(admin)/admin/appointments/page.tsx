@@ -123,11 +123,12 @@ export default function AdminAppointmentsPage() {
             <table className="w-full text-sm">
               <thead className="bg-[#F9FAFB] border-b border-[#E5E7EB]">
                 <tr>
-                  {['Dato', 'Tid', 'Pasient', 'Behandler', 'Status', 'Betaling'].map((h) => (
-                    <th key={h} className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase tracking-wide whitespace-nowrap">
-                      {h}
-                    </th>
-                  ))}
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase tracking-wide whitespace-nowrap">Dato</th>
+                  <th className="hidden sm:table-cell px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase tracking-wide whitespace-nowrap">Tid</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase tracking-wide whitespace-nowrap">Pasient</th>
+                  <th className="hidden sm:table-cell px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase tracking-wide whitespace-nowrap">Behandler</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase tracking-wide whitespace-nowrap">Status</th>
+                  <th className="hidden sm:table-cell px-4 py-3 text-left text-xs font-semibold text-[#6B7280] uppercase tracking-wide whitespace-nowrap">Betaling</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#F3F4F6]">
@@ -138,14 +139,14 @@ export default function AdminAppointmentsPage() {
                         day: 'numeric', month: 'short', year: 'numeric',
                       })}
                     </td>
-                    <td className="px-4 py-3.5 font-mono text-[#374151] whitespace-nowrap">
+                    <td className="hidden sm:table-cell px-4 py-3.5 font-mono text-[#374151] whitespace-nowrap">
                       {appt.start_time.slice(0, 5)}
                     </td>
                     <td className="px-4 py-3.5">
                       <p className="font-medium text-[#111827]">{appt.patient_name}</p>
-                      <p className="text-xs text-[#9CA3AF]">{appt.patient_email}</p>
+                      <p className="text-xs text-[#9CA3AF] hidden sm:block">{appt.patient_email}</p>
                     </td>
-                    <td className="px-4 py-3.5 text-[#374151]">
+                    <td className="hidden sm:table-cell px-4 py-3.5 text-[#374151]">
                       {appt.practitioners?.name}
                     </td>
                     <td className="px-4 py-3.5">
@@ -153,7 +154,7 @@ export default function AdminAppointmentsPage() {
                         {STATUS_NO[appt.status] ?? appt.status}
                       </span>
                     </td>
-                    <td className="px-4 py-3.5">
+                    <td className="hidden sm:table-cell px-4 py-3.5">
                       <p className={`text-xs font-semibold ${PAYMENT_COLORS[appt.payment_status] ?? 'text-gray-500'}`}>
                         {appt.payment_status === 'paid' && appt.amount_nok
                           ? `${(appt.amount_nok / 100).toFixed(0)} kr`

@@ -15,11 +15,16 @@ export function Footer() {
             <p className="text-sm text-[#6B7280]">Storgata 1, 0155 Oslo</p>
             <p className="text-sm text-[#6B7280]">+47 22 00 00 00</p>
           </div>
-          <div className="text-sm text-[#6B7280] text-right">
+          <div className="text-sm text-[#6B7280] text-left sm:text-right space-y-1">
             <p>© {new Date().getFullYear()} Klinikktime</p>
-            <Link href="/admin" className="hover:text-[#1A6BCC] transition-colors">
-              {language === 'no' ? 'Adminpanel' : 'Admin panel'}
-            </Link>
+            <div className="flex flex-wrap gap-x-4 gap-y-1 sm:justify-end">
+              <Link href="/admin" className="hover:text-[#1A6BCC] transition-colors">
+                {language === 'no' ? 'Adminpanel' : 'Admin panel'}
+              </Link>
+              <Link href="/min-klinikk" className="hover:text-[#0d9463] transition-colors">
+                {language === 'no' ? 'Behandlerportal' : 'Practitioner portal'}
+              </Link>
+            </div>
           </div>
         </div>
         <p className="mt-4 text-xs text-[#6B7280]">
