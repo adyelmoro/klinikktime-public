@@ -29,7 +29,7 @@ export default function AdminPractitionersPage() {
       .then((d) => { setPractitioners(d.practitioners ?? []); setLoading(false) })
   }, [])
 
-  function openForm(id: string) {
+  function openForm(id: string | null) {
     setActiveForm(id)
     setForm({ email: '', password: '' })
     setMsg(null)
