@@ -93,7 +93,11 @@ export default function AdminSchedulePage() {
   async function handleQrCheckin(e: React.FormEvent) {
     e.preventDefault()
     const token = qrInput.trim().toUpperCase()
-    const appt = appointments.find((a) => a.qr_token?.toUpperCase() === token)
+    // Match on full token OR the first 8-char segment (what the patient modal displays)
+    const appt = appointments.find((a) => {
+      const t = a.qr_token?.toUpperCase() ?? ''
+      return t === token || (token.length >= 6 && t.startsWith(token))
+    })
     if (!appt) {
       setQrMsg('QR-kode ikke funnet for i dag')
       return

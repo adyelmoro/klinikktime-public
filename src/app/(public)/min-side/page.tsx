@@ -438,8 +438,8 @@ export default function MinSidePage() {
                     <p className="text-[10px] font-medium text-[#9CA3AF] uppercase tracking-widest mb-0.5">
                       Innsjekk-kode
                     </p>
-                    <p className="font-mono text-xl font-bold text-[#111827] tracking-widest">
-                      {qrModal.qrToken}
+                    <p className="font-mono text-2xl font-bold text-[#111827] tracking-[0.15em]">
+                      {qrModal.qrToken.split('-')[0].toUpperCase()}
                     </p>
                   </div>
                 )}
