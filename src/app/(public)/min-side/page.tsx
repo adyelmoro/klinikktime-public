@@ -15,6 +15,7 @@ type Tab = 'upcoming' | 'past'
 interface QRModal {
   appointmentId: string
   qrDataUrl: string | null
+  qrToken: string | null
   loading: boolean
 }
 
@@ -93,13 +94,18 @@ export default function MinSidePage() {
   }
 
   async function openQR(apptId: string) {
-    setQrModal({ appointmentId: apptId, qrDataUrl: null, loading: true })
+    setQrModal({ appointmentId: apptId, qrDataUrl: null, qrToken: null, loading: true })
     try {
       const res = await fetch(`/api/appointments/${apptId}`)
       const data = await res.json()
-      setQrModal({ appointmentId: apptId, qrDataUrl: data.appointment?.qrDataUrl ?? null, loading: false })
+      setQrModal({
+        appointmentId: apptId,
+        qrDataUrl: data.appointment?.qrDataUrl ?? null,
+        qrToken: data.appointment?.qr_token ?? null,
+        loading: false,
+      })
     } catch {
-      setQrModal({ appointmentId: apptId, qrDataUrl: null, loading: false })
+      setQrModal({ appointmentId: apptId, qrDataUrl: null, qrToken: null, loading: false })
     }
   }
 
@@ -421,11 +427,23 @@ export default function MinSidePage() {
                 <div className="w-8 h-8 border-2 border-[#1A6BCC] border-t-transparent rounded-full animate-spin" />
               </div>
             ) : qrModal.qrDataUrl ? (
-              <img
-                src={qrModal.qrDataUrl}
-                alt="QR code"
-                className="w-48 h-48 mx-auto"
-              />
+              <>
+                <img
+                  src={qrModal.qrDataUrl}
+                  alt="QR code"
+                  className="w-48 h-48 mx-auto"
+                />
+                {qrModal.qrToken && (
+                  <div className="mt-3 px-4 py-2 bg-[#F5F7FA] rounded-xl">
+                    <p className="text-[10px] font-medium text-[#9CA3AF] uppercase tracking-widest mb-0.5">
+                      Innsjekk-kode
+                    </p>
+                    <p className="font-mono text-xl font-bold text-[#111827] tracking-widest">
+                      {qrModal.qrToken}
+                    </p>
+                  </div>
+                )}
+              </>
             ) : (
               <p className="text-sm text-[#9CA3AF] py-8">Kunne ikke laste QR-kode</p>
             )}
