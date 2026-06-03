@@ -4,7 +4,7 @@
 **Project directory:** A:\ClaudeAI\MyAI-Projects\klinikktime
 **Parent context:** A:\ClaudeAI\MyAI-Projects\CLAUDE.md
 **Session name:** Klinikktime - Project
-**Status:** 🔨 IN PROGRESS — Phase 0 ✅ Phase 1 ✅ Phase 2 ✅ Phase 3 ✅ Phase 4 ✅ Phase 4.5 ✅ — Phase 5 (polish + deploy) next
+**Status:** ✅ SHIPPED — All phases complete. Live at klinikktime.vercel.app
 
 ---
 
@@ -114,7 +114,7 @@ The live Vercel deployment builds from the private repo. The public repo shows a
 | 3 | Patient dashboard | ✅ Complete — 2026-05-28 |
 | 4 | Admin panel | ✅ Complete — 2026-05-29 |
 | 4.5 | Practitioner portal | ✅ Complete — 2026-05-29 |
-| 5 | Polish + deploy | 🔲 Not started |
+| 5 | Polish + deploy | ✅ Complete — 2026-06-03 |
 | Mobile | React Native companion app | 🔲 After web ships |
 | v2 | Multi-tenant, flexible slots, real Vipps | 🔲 Future (needs org nr) |
 
@@ -225,7 +225,8 @@ VIPPS_MERCHANT_SERIAL_NUMBER=mock
 
 **Strategic decisions locked (2026-05-29 session):**
 - Practitioner portal: multi-auth per-practitioner (admin creates accounts), `/min-klinikk`, teal `#0d9463`
-- Public repo: https://github.com/adyelmoro/klinikktime-public.git — populate ONCE at end before shipping
+- Public repo: https://github.com/adyelmoro/klinikktime-public.git ✅ PUSHED — remote `public` registered locally
+- Push both: `git push origin main && git push public main`
 - React Native: Project 4, after web ships, native features include QR camera scan (centrepiece), push notifications, biometric lock
 - No deadline pressure — build everything completely before shipping
 - v2 = real Vipps (needs org nr) + multi-tenant + flexible slots — architecture already ready
